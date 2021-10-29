@@ -24,10 +24,4 @@ public class LeadController {
     return leadService.listarLeads();
   }
 
-  /*@PostMapping
-  public void validarEmail(LeadDTO lead){
-    leadService.validarEmail(lead);
-
-  }*/
-
 }

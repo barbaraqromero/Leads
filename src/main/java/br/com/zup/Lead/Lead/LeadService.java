@@ -24,7 +24,7 @@ public class LeadService {
   public void validarEmail(LeadDTO leadDTO) {
     for (LeadDTO referencia : leads) {
       if (referencia.getEmail().equalsIgnoreCase(leadDTO.getEmail())) {
-        throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "E-mail já cadastrado!");
       }
     }
     leads.add(leadDTO);
