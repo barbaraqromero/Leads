@@ -9,18 +9,10 @@ public class LeadDTO {
   private String email;
   private String nome;
   private String telefone;
-  private List<ProdutoDTO> produtos = new ArrayList<>();
+  private List<ProdutoDTO> produtos;
 
   public LeadDTO() {
   }
-
-  public LeadDTO(String email, String nome, String telefone, List<ProdutoDTO> produtos) {
-    this.email = email;
-    this.nome = nome;
-    this.telefone = telefone;
-    this.produtos = produtos;
-  }
-
 
   public String getEmail() {
     return email;
