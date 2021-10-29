@@ -21,13 +21,16 @@ public class LeadService {
     return leads;
   }
 
-  public void validarEmail(@RequestBody LeadDTO lead) {
+  public void validarEmail(LeadDTO leadDTO) {
     for (LeadDTO referencia : leads) {
-      if (referencia.getEmail().equalsIgnoreCase(lead.getEmail())) {
+      if (referencia.getEmail().equalsIgnoreCase(leadDTO.getEmail())) {
         throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
       }
     }
-    leads.add(lead);
+    leads.add(leadDTO);
 
   }
+
+
+
 }
