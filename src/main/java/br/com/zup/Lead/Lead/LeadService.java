@@ -2,8 +2,8 @@ package br.com.zup.Lead.Lead;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +24,26 @@ public class LeadService {
   public void validarEmail(LeadDTO leadDTO) {
     for (LeadDTO referencia : leads) {
       if (referencia.getEmail().equalsIgnoreCase(leadDTO.getEmail())) {
-        throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "E-mail já cadastrado!");
       }
     }
     leads.add(leadDTO);
 
   }
 
+  public LeadDTO buscarLead(String email) {
+    for (LeadDTO referencia : leads) {
+      if (referencia.getEmail().equalsIgnoreCase(email)) {
+        return referencia;
+      }
+    }
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
+
+  }
 
 }
+
+
+
+
+
