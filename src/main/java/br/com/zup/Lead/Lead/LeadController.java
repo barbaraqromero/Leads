@@ -15,7 +15,7 @@ public class LeadController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public void cadastrarLead(@RequestBody LeadDTO leadDTO) {
-    leadService.validarEmail(leadDTO);
+    //leadService.validarEmail(leadDTO);
     leadService.cadastrarLead(leadDTO);
   }
 

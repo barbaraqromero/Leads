@@ -15,21 +15,31 @@ public class LeadService {
 
 
   public void cadastrarLead(LeadDTO leadDTO) {
-    leads.add(leadDTO);
+    if (verificarEmailRepetido(leadDTO) == true) {
+      compararListasDeProdutos(leadDTO);
+      atualizarProdutos(leadDTO);
+
+    } else {
+      leads.add(leadDTO);
+
+    }
+
   }
 
   public List<LeadDTO> listarLeads() {
     return leads;
   }
 
-  /*public void validarEmail(LeadDTO leadDTO) {
+  public boolean verificarEmailRepetido(LeadDTO leadDTO) {
+    boolean emailRepetido = false;
     for (LeadDTO referencia : leads) {
       if (referencia.getEmail().equalsIgnoreCase(leadDTO.getEmail())) {
+        emailRepetido = true;
       }
     }
-    leads.add(leadDTO);
+    return emailRepetido;
 
-  }*/
+  }
 
   public LeadDTO buscarLead(String email) {
     for (LeadDTO referencia : leads) {
@@ -42,17 +52,27 @@ public class LeadService {
 
   }
 
-  public void compararListasDeProdutos(LeadDTO leadNovo, String email){
-    LeadDTO leadAntigo = buscarLead(email);
-    for (ProdutoDTO produtosNovos : leadNovo.getProdutos()){
-      for (ProdutoDTO produtosAntigos : leadAntigo.getProdutos()){
-        if (produtosNovos.equals(produtosAntigos)){
+  public void compararListasDeProdutos(LeadDTO leadNovo) {
+    LeadDTO leadAntigo = buscarLead(leadNovo.getEmail());
+    for (ProdutoDTO produtosNovos : leadNovo.getProdutos()) {
+      for (ProdutoDTO produtosAntigos : leadAntigo.getProdutos()) {
+        if (produtosNovos.equals(produtosAntigos)) {
           throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
       }
 
     }
   }
+
+  public void atualizarProdutos(LeadDTO leadNovo) {
+    LeadDTO leadAntigo = buscarLead(leadNovo.getEmail());
+    for (ProdutoDTO referencia : leadNovo.getProdutos()) {
+      leadAntigo.getProdutos().add(referencia);
+    }
+
+
+  }
+
 
 }
 
